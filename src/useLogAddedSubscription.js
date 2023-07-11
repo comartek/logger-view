@@ -6,9 +6,9 @@ const COMMENTS_SUBSCRIPTION = gql`
   }
 `;
 
-export function useLogAddedSubscription({ key }) {
+export function useLogAddedSubscription({ key, enabled }) {
   return useSubscription(COMMENTS_SUBSCRIPTION, {
     variables: { key },
-    skip: !key,
+    skip: !enabled,
   });
 }

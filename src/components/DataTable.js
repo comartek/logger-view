@@ -1,10 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLogAddedSubscription } from "../useLogAddedSubscription";
 import LoggerItem from "./LoggerItem";
 
-const TableData = ({ keyString }) => {
-  const { data } = useLogAddedSubscription({ key: keyString });
+const TableData = ({ keyString, enabled }) => {
+  const { data } = useLogAddedSubscription({ key: keyString, enabled });
   const [currentLogs, setCurrentLogs] = useState([]);
+  
+  const runningKey = useRef(keyString)
+
+  useEffect(() => {
+    if (enabled && runningKey.current !== keyString) {
+      runningKey.current = keyString;
+      setCurrentLogs([]);
+    }
+  }, [enabled, keyString])
 
   useEffect(() => {
     if (!data) {
@@ -27,6 +36,14 @@ const TableData = ({ keyString }) => {
             key={index}
           />
         ))}
+
+        {
+          !currentLogs.length && (
+            <div className="empty-state">
+              No data
+            </div>
+          )
+        }
       </div>
     </>
   );

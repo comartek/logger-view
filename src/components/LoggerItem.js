@@ -5,7 +5,7 @@ const LoggerItem = ({ time, logAdded }) => {
   const timeLog = new Date(time * 1000);
   return (
     <>
-      <div style={{ paddingBottom: 20 }}>
+      <div>
         <p style={{ color: "gray", fontSize: "0.7rem" }}>
           {timeLog.toLocaleString()}
         </p>
