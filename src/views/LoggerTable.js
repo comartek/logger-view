@@ -1,9 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TableData from "../components/DataTable";
 import { useKeyPress } from 'ahooks';
+import { useLocalStorageState } from 'ahooks';
 
 const LoggerTable = () => {
-  const [keyString, setKeyString] = useState("");
+  const [keyString, setKeyString] = useLocalStorageState("current-key", {
+    defaultValue: ''
+  });
   const [currentKey, setCurrentKey] = useState("");
   const [isListening, setIsListening] = useState(false);
   const inputRef = useRef();
@@ -23,10 +26,12 @@ const LoggerTable = () => {
   };
 
   const handleCancel = () => {
-    window.document.getElementById("xxxxx").focus();
-    // inputRef.current.focus();
     setIsListening(false);
   };
+
+  useEffect(() => {
+    !isListening && inputRef.current.focus();
+  }, [isListening])
 
   useKeyPress(13, () => {
     if (isListening) {
@@ -36,15 +41,12 @@ const LoggerTable = () => {
     }
   });
 
-  
-
   return (
     <>
       <div className="section-logger">
         <div className="content-left">
           <h2 className="title">Logger view</h2>
           <input
-            id="xxxxx"
             autoFocus
             ref={inputRef}
             disabled={isListening}

@@ -59,6 +59,7 @@ code {
   align-items: center;
   border-radius: 34px;
   border: none;
+  cursor: pointer;
 }
 .btn-red {
   background-color: #ff0000a6;
@@ -67,4 +68,17 @@ code {
 .empty-state {
   text-align: center;
    color: rgba(255, 255, 255, 0.6);;
+}
+
+.clear-button {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  right: 13px;
+  top: 75px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
